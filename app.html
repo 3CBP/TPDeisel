@@ -3,58 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TP Auto Parts</title>
+  <title>TP Diesel</title>
   <style>
-    body{margin:0;background:#0d1b2a;color:white;font-family:system-ui}
-    header{background:#ff6b00;padding:20px;text-align:center;font-size:1.8rem}
-    input{width:90%;max-width:500px;padding:15px;margin:20px auto;display:block;border:none;border-radius:50px;font-size:1.2rem}
-    .parts{ display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:20px}
-    .part{background:#1b263b;padding:20px;border-radius:15px;text-align:center}
-    .part img{width:100%;height:180px;object-fit:contain;background:#111;border-radius:10px}
-    .price{color:#ff6b00;font-size:1.8rem;font-weight:bold;margin:10px 0}
-    button{background:#ff6b00;color:white;padding:12px 30px;border:none;border-radius:50px}
+    body{margin:0;background:#0d1b2a;color:#fff;font-family:system-ui;padding:40px;text-align:center}
+    header{background:#00b74a;padding:20px;font-size:1.8rem}
   </style>
 </head>
 <body>
-
-<header>TP Auto Parts</header>
-<input type="text" placeholder="Search parts..." oninput="filter(this.value.toLowerCase())">
-
-<div class="parts" id="parts"></div>
-
-<script>
-const parts = [
-  {name:"Air Brake Chamber", price:"$189", img:"https://i.imgur.com/9t1lN2k.png"},
-  {name:"LED Headlight Kit", price:"$299", img:"https://i.imgur.com/4p8K9pJ.png"},
-  {name:"Turbo Rebuild Kit", price:"$879", img:"https://i.imgur.com/X7kP8mD.png"},
-  {name:"Oil Filter", price:"$24.99", img:"https://i.imgur.com/5eR9pLm.png"},
-  {name:"Fifth Wheel", price:"$1,299", img:"https://i.imgur.com/Z5pL7kN.png"},
-  {name:"Battery 950CCA", price:"$179", img:"https://i.imgur.com/T3vN9kP.png"}
-];
-
-function show(){
-  document.getElementById("parts").innerHTML = parts.map(p => `
-    <div class="part">
-      <img src="${p.img}">
-      <h3>${p.name}</h3>
-      <div class="price">${p.price}</div>
-      <button onclick="alert('Added to cart')">Add to Cart</button>
-    </div>
-  `).join('');
-}
-function filter(q){
-  const filtered = parts.filter(p => p.name.toLowerCase().includes(q));
-  document.getElementById("parts").innerHTML = filtered.length ? filtered.map(p => `
-    <div class="part">
-      <img src="${p.img}">
-      <h3>${p.name}</h3>
-      <div class="price">${p.price}</div>
-      <button onclick="alert('Added')">Add to Cart</button>
-    </div>
-  `).join('') : "<p style='text-align:center;color:#888'>No parts found</p>";
-}
-show();
-</script>
-
+  <header>TP Diesel</header>
+  <h1 style="margin-top:100px">Catalog coming soon</h1>
 </body>
 </html>
