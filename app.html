@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TP Auto Parts</title>
+  <style>
+    body{margin:0;font-family:system-ui;background:#0d1b2a;color:white}
+    header{background:#ff6b00;padding:20px;text-align:center;font-size:1.6rem}
+    input{width:90%;max-width:500px;padding:15px;margin:20px auto;display:block;border:none;border-radius:50px;font-size:1.2rem}
+    .parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:20px}
+    .part{background:#1b263b;padding:20px;border-radius:15px;text-align:center}
+    .part img{width:100%;height:180px;object-fit:contain;background:#111;border-radius:10px}
+    .price{color:#ff6b00;font-size:1.8rem;font-weight:bold}
+    button{background:#ff6b00;color:white;border:none;padding:12px 30px;margin-top:10px;border-radius:50px}
+  </style>
+</head>
+<body>
+
+<header>TP Auto Parts Catalog</header>
+
+<input type="text" id="s" placeholder="Search brakes, turbo, lights..." oninput="search()">
+
+<div class="parts" id="list"></div>
+
+<script>
+const parts = [
+  ["Air Brake Chamber","$189","https://i.imgur.com/9t1lN2k.png"],
+  ["LED Headlight Kit","$299","https://i.imgur.com/4p8K9pJ.png"],
+  ["Turbo Rebuild Kit","$879","https://i.imgur.com/X7kP8mD.png"],
+  ["Oil Filter","$24.99","https://i.imgur.com/5eR9pLm.png"],
+  ["Fifth Wheel Plate","$1,299","https://i.imgur.com/Z5pL7kN.png"],
+  ["Battery 950CCA","$179","https://i.imgur.com/T3vN9kP.png"]
+];
+
+function render(){
+  document.getElementById("list").innerHTML = parts.map(p=>`
+    <div class="part">
+      <img src="${p[2]}">
+      <h3>${p[0]}</h3>
+      <div class="price">${p[1]}</div>
+      <button onclick="alert('Added! Call us to order')">Add to Cart</button>
+    </div>
+  `).join('');
+
+render();
+
+function search(){
+  let term = document.getElementById("s").value.toLowerCase();
+  let filtered = parts.filter(p => p[0].toLowerCase().includes(term));
+  document.getElementById("list").innerHTML = filtered.map(p=>`
+    <div class="part">
+      <img src="${p[2]}">
+      <h3>${p[0]}</h3>
+      <div class="price">${p[1]}</div>
+      <button onclick="alert('Added! Call us')">Add to Cart</button>
+    </div>
+  `).join('') || "<p style='text-align:center;color:#666'>No parts found</p>";
+}
+</script>
+
+</body>
+</html>
