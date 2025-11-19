@@ -3,34 +3,77 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TruckPro</title>
+  <title>TruckPro Parts</title>
   <meta name="theme-color" content="#ff6b00">
   <style>
-    body{margin:0;font-family:system-ui;background:#0d1b2a;color:#fff;text-align:center;padding:20px}
-    .hero{height:100vh;background:linear-gradient(#00000088,#000000bb),url('https://images.unsplash.com/photo-1581093458791-9ea9a7842e88?auto=format&fit=crop&q=80') center/cover;display:flex;flex-direction:column;justify-content:center}
-    .logo{width:150px;height:150px;margin:0 auto 20px;background:url('https://www.freeiconspng.com/uploads/truck-png-2.png') center/contain no-repeat}
-    h1{font-size:3.2rem;margin:10px}
-    button{background:#ff6b00;color:#fff;border:none;padding:18px 50px;font-size:1.4rem;border-radius:50px;margin:30px auto;display:block}
-    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:40px}
-    .card{background:#1b263b;padding:25px;border-radius:15px}
-    .card h3{color:#ff6b00}
+    body{margin:0;font-family:system-ui;background:#0d1b2a;color:#fff}
+    header{background:#ff6b00;padding:15px;position:sticky;top:0;z-index:10;text-align:center;font-size:1.4rem}
+    .cart{position:fixed;top:15px;right:15px;background:#c04f00;padding:10px 15px;border-radius:50px;font-weight:bold}
+    .hero{padding:40px 20px;text-align:center;background:linear-gradient(#00000099,#000000cc),url('https://images.unsplash.com/photo-1581093458791-9ea9a7842e88?auto=format&fit=crop&q=80') center/cover}
+    .logo{width:120px;height:120px;margin:0 auto 20px;background:url('https://www.freeiconspng.com/uploads/truck-png-2.png') center/contain no-repeat}
+    input[type=text]{width:90%;max-width:500px;padding:15px;font-size:1.2rem;border:none;border-radius:50px;margin:20px auto;display:block}
+    .parts{ display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:20px}
+    .part{background:#1b263b;padding:20px;border-radius:15px;text-align:center}
+    .part img{width:100%;height:180px;object-fit:contain;background:#111;border-radius:10px}
+    .price{color:#ff6b00;font-size:1.5rem;font-weight:bold}
+    button{background:#ff6b00;color:#fff;border:none;padding:12px 30px;margin-top:10px;border-radius:50px;font-size:1.1rem}
+    button:active{transform:scale(0.95)}
+    .empty{text-align:center;padding:50px;color:#aaa}
   </style>
 </head>
 <body>
 
+  <header>
+    TRUCKPRO PARTS
+    <div class="cart">Cart: <span id="count">0</span></div>
+  </header>
+
   <div class="hero">
     <div class="logo"></div>
-    <h1>TRUCKPRO</h1>
-    <p style="font-size:1.3rem">Heavy Duty Parts • Sales • Service</p>
-    <button onclick="alert('Tap Share → Add to Home Screen to install')">Install App Now</button>
+    <h1>Find Your Part Fast</h1>
+    <input type="text" id="search" placeholder="Search brakes, filters, turbo, lights..." oninput="filter()">
+    <button onclick="alert('Tap Share → Add to Home Screen to install')">Install App</button>
   </div>
 
-  <div class="cards">
-    <div class="card"><h3>Parts Catalog</h3><p>Search millions of parts</p></div>
-    <div class="card"><h3>Instant Quotes</h3><p>Prices in seconds</p></div>
-    <div class="card"><h3>24/7 Service</h3><p>Book repairs anytime</p></div>
-    <div class="card"><h3>Financing</h3><p>Fleet accounts welcome</p></div>
+  <div class="parts" id="list">
+    <!-- Parts auto-filled by script below -->
   </div>
+
+<script>
+const parts = [
+  {name:"Air Brake Chamber", price:"$189.99", img:"https://i.imgur.com/9t1lN2k.png"},
+  {name:"LED Headlight Kit", price:"$299", img:"https://i.imgur.com/4p8K9pJ.png"},
+  {name:"Turbocharger Rebuild Kit", price:"$879", img:"https://i.imgur.com/X7kP8mD.png"},
+  {name:"Oil Filter (Fleetguard)", price:"$24.99", img:"https://i.imgur.com/5eR9pLm.png"},
+  {name:"Fifth Wheel Plate", price:"$1,299", img:"https://i.imgur.com/Z5pL7kN.png"},
+  {name:"Fuel/Water Separator", price:"$68.50", img:"https://i.imgur.com/Qw2vF8s.png"},
+  {name:"Clutch Kit 15.5\"", price:"$1,149", img:"https://i.imgur.com/9fG3hRt.png"},
+  {name:"Mud Flaps Heavy Duty", price:"$89/pair", img:"https://i.imgur.com/Lm7xK9v.png"},
+  {name:"Exhaust Elbow 5\"", price:"$219", img:"https://i.imgur.com/8jK4pLm.png"},
+  {name:"Battery 12V 950CCA", price:"$179", img:"https://i.imgur.com/T3vN9kP.png"}
+];
+
+let cart = 0;
+const list = document.getElementById("list");
+const count = document.getElementById("count");
+
+function render(arr) {
+  list.innerHTML = arr.length ? arr.map(p => `
+    <div class="part">
+      <img src="${p.img}" alt="${p.name}">
+      <h3>${p.name}</h3>
+      <div class="price">${p.price}</div>
+      <button onclick="cart++;count.textContent=cart;alert('Added to cart!')">Add to Cart</button>
+    </div>
+  `).join('') : '<div class="empty">No parts found</div>';
+}
+render(parts);
+
+function filter() {
+  const term = document.getElementById("search").value.toLowerCase();
+  render(parts.filter(p => p.name.toLowerCase().includes(term)));
+}
+</script>
 
 </body>
 </html>
