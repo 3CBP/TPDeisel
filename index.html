@@ -4,14 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TP Diesel</title>
+  <meta name="theme-color" content="#0d1b2a">
   <style>
     body{margin:0;background:#0d1b2a;color:#fff;font-family:system-ui;text-align:center;padding:40px;line-height:1.7}
     img{max-width:90%;height:auto;margin:30px auto;border-radius:12px}
     h1{font-size:2.8rem;margin:20px 0 10px}
-    p{font-size:1.2rem;max-width:600px;margin:20px auto}
-    button{padding:18px 50px;font-size:1.4rem;border:none;border-radius:50px;cursor:pointer;margin:40px auto;display:block;min-width:280px}
-    .install-btn{background:#ff6b00;color:#fff}
-    .home-btn{background:#00b74a;color:#fff}
+    p{font-size:1.2rem;max-waidth:600px;margin:20px auto}
+    button{padding:18px 50px;font-size:1.4rem;border:none;border-radius:50px;cursor:pointer;margin:40px auto;display:block;min-width:280px;transition:all 0.4s}
+    .waiting{background:#444;color:#aaa;cursor:not-allowed}
+    .install{background:#ff6b00;color:#fff}
+    .home{background:#00b74a;color:#fff}
     .small{font-size:0.9rem;color:#aaa;margin-top:30px}
   </style>
 </head>
@@ -21,27 +23,37 @@
   <h1>TP Diesel</h1>
   <p>Heavy-Duty Truck Parts & 24/7 Service<br>Fleet Pricing • Real Inventory • Emergency Roadside</p>
 
-  <button id="mainBtn" class="install-btn" onclick="installed()">Install to Home Screen</button>
+  <button id="btn" class="waiting">Waiting for install...</button>
 
-  <div class="small" id="instructions">
-    iPhone: Tap Share ↓ → Add to Home Screen<br>
+  <div class="small">
+    iPhone: Tap Share → Add to Home Screen<br>
     Android: Tap Menu ⋮ → “Install app” or “Add to home screen”
   </div>
 
 <script>
-if (localStorage.getItem('tp-installed') === 'true') {
-  document.getElementById('mainBtn').textContent = 'TP Diesel Home';
-  document.getElementById('mainBtn').className = 'home-btn';
-  document.getElementById('mainBtn').onclick = () => location.href = 'app.html';
-  document.getElementById('instructions').style.display = 'none';
-}
+let deferredPrompt;
+const btn = document.getElementById('btn');
 
-function installed() {
-  localStorage.setItem('tp-installed', 'true');
-  document.getElementById('mainBtn').textContent = 'TP Diesel Home';
-  document.getElementById('mainBtn').className = 'home-btn';
-  document.getElementById('mainBtn').onclick = () => location.href = 'app.html';
-  document.getElementById('instructions').style.display = 'none';
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  btn.textContent = 'Install to Home Screen';
+  btn.className = 'install';
+  btn.onclick = () => deferredPrompt.prompt();
+});
+
+deferredPrompt?.prompt(); // in case it was already triggered
+
+window.addEventListener('appinstalled', () => {
+  btn.textContent = 'TP Diesel Home';
+  btn.className = 'home';
+  btn.onclick = () => location.href = 'app.html';
+});
+
+if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+  btn.textContent = 'TP Diesel Home';
+  btn.className = 'home';
+  btn.onclick = () => location.href = 'app.html';
 }
 </script>
 
