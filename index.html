@@ -1,20 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TP Auto</title>
+  <title>TP Diesel</title>
   <style>
-    body{margin:0;background:#0d1b2a;color:white;font-family:system-ui;text-align:center;padding:40px}
-    h1{font-size:3rem;margin:30px 0 10px}
-    p{font-size:1.2rem;margin:20px}
-    a button{background:#ff6b00;color:white;padding:20px 60px;font-size:1.8rem;border:none;border-radius:50px;display:block;margin:50px auto;width:80%;max-width:400px}
+    body{margin:0;background:#0d1b2a;color:#fff;font-family:system-ui;text-align:center;padding:40px;line-height:1.7}
+    img{max-width:90%;height:auto;margin:30px auto;border-radius:12px}
+    h1{font-size:2.8rem;margin:20px 0 10px}
+    p{font-size:1.2rem;max-width:600px;margin:20px auto}
+    button{padding:18px 50px;font-size:1.4rem;border:none;border-radius:50px;cursor:pointer;margin:40px auto;display:block;min-width:280px}
+    .install-btn{background:#ff6b00;color:#fff}
+    .home-btn{background:#00b74a;color:#fff}
+    .small{font-size:0.9rem;color:#aaa;margin-top:30px}
   </style>
 </head>
 <body>
-  <h1>TP Auto</h1>
-  <p>Heavy Duty Truck Parts & Service</p>
-  <p>24/7 • Fleet Pricing • Real Inventory</p>
-  <a href="app.html"><button>Enter →</button></a>
+
+  <img src="logo.jpeg" alt="TP Diesel">
+  <h1>TP Diesel</h1>
+  <p>Heavy-Duty Truck Parts & 24/7 Service<br>Fleet Pricing • Real Inventory • Emergency Roadside</p>
+
+  <button id="mainBtn" class="install-btn" onclick="installed()">Install to Home Screen</button>
+
+  <div class="small" id="instructions">
+    iPhone: Tap Share ↓ → Add to Home Screen<br>
+    Android: Tap Menu ⋮ → “Install app” or “Add to home screen”
+  </div>
+
+<script>
+if (localStorage.getItem('tp-installed') === 'true') {
+  document.getElementById('mainBtn').textContent = 'TP Diesel Home';
+  document.getElementById('mainBtn').className = 'home-btn';
+  document.getElementById('mainBtn').onclick = () => location.href = 'app.html';
+  document.getElementById('instructions').style.display = 'none';
+}
+
+function installed() {
+  localStorage.setItem('tp-installed', 'true');
+  document.getElementById('mainBtn').textContent = 'TP Diesel Home';
+  document.getElementById('mainBtn').className = 'home-btn';
+  document.getElementById('mainBtn').onclick = () => location.href = 'app.html';
+  document.getElementById('instructions').style.display = 'none';
+}
+</script>
+
 </body>
 </html>
