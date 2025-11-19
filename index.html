@@ -4,111 +4,34 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TP Auto</title>
-  <meta name="theme-color" content="#ff6b00">
   <style>
-    body{margin:0;font-family:system-ui;background:#0d1b2a;color:#fff;text-align:center;padding:20px;line-height:1.6}
-    .logo{width:140px;height:140px;margin:30px auto;background:url('https://www.freeiconspng.com/uploads/truck-png-2.png') center/contain no-repeat}
-    h1{font-size:2.8rem;margin:10px}
-    .news{background:#1b263b;padding:20px;margin:30px auto;border-radius:15px;max-width:600px}
-    button{background:#ff6b00;color:#fff;border:none;padding:18px 50px;font-size:1.4rem;border-radius:50px;margin:30px auto;display:block;width:90%;max-width:400px;cursor:pointer}
-    .small{font-size:0.9rem;color:#aaa;margin-top:20px}
-    .hidden{display:none}
-    /* Catalog */
-    header{background:#ff6b00;padding:15px;position:sticky;top:0;font-size:1.4rem}
-    input{width:90%;max-width:500px;padding:15px;font-size:1.2rem;border:none;border-radius:50px;margin:20px auto;display:block}
-    .parts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:20px}
-    .part{background:#1b263b;padding:20px;border-radius:15px}
-    .part img{width:100%;height:180px;object-fit:contain;background:#111;border-radius:10px}
-    .price{color:#ff6b00;font-size:1.5rem;font-weight:bold}
-    .add{background:#ff6b00;color:#fff;border:none;padding:12px 30px;margin-top:10px;border-radius:50px}
+    body{margin:0;font-family:system-ui;background:#0d1b2a;color:white;text-align:center;padding:30px}
+    .logo{width:140px;height:140px;margin:40px auto;background:url('https://www.freeiconspng.com/uploads/truck-png-2.png') center/contain no-repeat}
+    h1{font-size:3rem;margin:20px}
+    .news{background:#1b263b;padding:25px;margin:30px auto;border-radius:15px;max-width:600px}
+    a button{background:#ff6b00;color:white;border:none;padding:20px;font-size:1.5rem;border-radius:50px;width:90%;max-width:400px;margin:30px auto;display:block;text-decoration:none}
   </style>
 </head>
 <body>
 
-  <!-- 1. Minimal landing page (first visit) -->
-  <div id="landing">
-    <div class="logo"></div>
-    <h1>TP Auto</h1>
-    <p style="font-size:1.3rem">Heavy-Duty Truck Parts • Sales • 24/7 Service</p>
+  <div class="logo"></div>
+  <h1>TP Auto</h1>
+  <p>Heavy-Duty Truck Parts • Sales • 24/7 Service</p>
 
-    <div class="news">
-      <h2>News</h2>
-      <p>24-hour emergency service now available<br>
-         New Cummins ISX turbo kits in stock<br>
-         Fleet pricing & financing ready</p>
-    </div>
-
-    <div id="installBtn">
-      <button onclick="install()">Install App – 5 Seconds</button>
-      <div class="small">
-        iPhone: Share ↓ → Add to Home Screen<br>
-        Android: Menu → Install app / Add to home screen
-      </div>
-      <p style="margin-top:30px">
-        <a href="#" onclick="install()" style="color:#ff8c33">I already installed → skip</a>
-      </p>
-    </div>
-
-    <div id="enterBtn" class="hidden">
-      <button onclick="showCatalog()">Go to TP Auto →</button>
-    </div>
+  <div class="news">
+    <h2>Latest</h2>
+    <p>24-hour emergency service now live<br>
+       Cummins ISX turbos in stock<br>
+       Fleet accounts welcome</p>
   </div>
 
-  <!-- 2. Full catalog (after install) -->
-  <div id="catalog" class="hidden">
-    <header>TP Auto Parts</header>
-    <input type="text" id="search" placeholder="Search brakes, turbo, filters...">
-    <div class="parts" id="parts"></div>
-  </div>
+  <a href="app.html"><button>Open TP Auto →</button></a>
 
-<script>
-const installed = localStorage.getItem('tp-installed') === 'yes';
-
-if (installed) {
-  document.getElementById('installBtn').classList.add('hidden');
-  document.getElementById('enterBtn').classList.remove('hidden');
-  showCatalog();
-}
-
-function install() {
-  localStorage.setItem('tp-installed', 'yes');
-  document.getElementById('installBtn').classList.add('hidden');
-  document.getElementById('enterBtn').classList.remove('hidden');
-  alert('Installed! Now tap “Go to TP Auto” or close and reopen from your home screen.');
-}
-
-function showCatalog() {
-  document.getElementById('landing').classList.add('hidden');
-  document.getElementById('catalog').classList.remove('hidden');
-  renderParts(parts);
-}
-
-// Fake inventory
-const parts = [
-  {n:"Air Brake Chamber",p:"$189.99",i:"https://i.imgur.com/9t1lN2k.png"},
-  {n:"LED Headlight Kit",p:"$299",i:"https://i.imgur.com/4p8K9pJ.png"},
-  {n:"Turbo Rebuild Kit",p:"$879",i:"https://i.imgur.com/X7kP8mD.png"},
-  {n:"Oil Filter",p:"$24.99",i:"https://i.imgur.com/5eR9pLm.png"},
-  {n:"Fifth Wheel Plate",p:"$1,299",i:"https://i.imgur.com/Z5pL7kN.png"},
-  {n:"Fuel/Water Separator",p:"$68.50",i:"https://i.imgur.com/Qw2vF8s.png"}
-];
-
-function renderParts(arr){
-  document.getElementById('parts').innerHTML = arr.map(x=>`
-    <div class="part">
-      <img src="${x.i}">
-      <h3>${x.n}</h3>
-      <div class="price">${x.p}</div>
-      <button class="add" onclick="alert('Added! Call us to order')">Add to Cart</button>
-    </div>`).join('') || '<p style="color:#aaa">No parts found</p>';
-}
-renderParts(parts);
-
-document.getElementById('search')?.addEventListener('input', e=>{
-  const term = e.target.value.toLowerCase();
-  renderParts(parts.filter(x=>x.n.toLowerCase().includes(term)));
-});
-</script>
+  <p style="margin-top:50px;font-size:0.9rem;color:#888">
+    Add to Home Screen for fastest access<br>
+    iPhone: Share ↓ → Add to Home Screen<br>
+    Android: Menu → Add to home screen
+  </p>
 
 </body>
 </html>
