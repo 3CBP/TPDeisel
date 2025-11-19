@@ -1,45 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TruckPro Parts & Service</title>
-  <meta name="description" content="Heavy-duty truck parts, sales, and 24/7 service">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TruckPro</title>
   <meta name="theme-color" content="#ff6b00">
-  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiVHJ1Y2tQcm8gUGFydHMgJiBTZXJ2aWNlIiwic2hvcnRfbmFtZSI6IlRydWNrUHJvIiwiZGVzY3JpcHRpb24iOiJIZWF2eS1kdXR5IHRydWNrIHBhcnRzLCBzYWxlcyBhbmQgMjQvNyBzZXJ2aWNlIiwic3RhcnRfdXJsIjoiLyIsImRpc3BsYXkiOiJzdGFuZGFsb25lIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwZjFhMmUiLCJ0aGVtZV9jb2xvciI6IiNmZjZiMDAiLCJpY29ucyI6W3sic3JjIjoiaHR0cHM6Ly9jZG4uaWNvbnMtcG5nLmZsYXRpY29uLmNvbS81MTIvMzA2My8zMDYzMTU4LnBuZyIsInNpemVzIjoiNTEyeDUxMiIsInR5cGUiOiJpbWFnZS9wbmcifSx7InNyYyI6Imh0dHBzOi8vY2RuLmljb25zLXBuZy5mbGF0aWNvbi5jb20vMTkyLzMwNjMvMzAupunN4LnBuZyIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9wbmcifV19">
   <style>
-    body{margin:0;font-family:system-ui;background:#0f1a2e;color:#fff;overflow-x:hidden}
-    .hero{height:100vh;background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.8)),url('https://images.unsplash.com/photo-1581093458791-9ea9a7842e88?auto=format&fit=crop&q=80') center/cover;display:flex;align-items:center;justify-content:center;text-align:center}
-    .logo{width:160px;height:160px;background:url('https://www.freeiconspng.com/uploads/truck-png-2.png') center/contain no-repeat;filter:drop-shadow(0 0 20px #ff6b0088);margin-bottom:20px}
-    h1{font-size:3.5rem;margin:0;text-shadow:0 4px 20px #000}
-    p{margin:20px 0;font-size:1.3rem}
-    button{background:#ff6b00;color:#fff;border:none;padding:16px 44px;font-size:1.3rem;border-radius:50px;cursor:pointer;box-shadow:0 10px 30px #ff6b0044}
-    button:active{transform:scale(0.95)}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px;padding:60px 20px;max-width:1200px;margin:auto}
-    .card{background:#1f2937;padding:30px;border-radius:15px;text-align:center}
+    body{margin:0;font-family:system-ui;background:#0d1b2a;color:#fff;text-align:center;padding:20px}
+    .hero{height:100vh;background:linear-gradient(#00000088,#000000bb),url('https://images.unsplash.com/photo-1581093458791-9ea9a7842e88?auto=format&fit=crop&q=80') center/cover;display:flex;flex-direction:column;justify-content:center}
+    .logo{width:150px;height:150px;margin:0 auto 20px;background:url('https://www.freeiconspng.com/uploads/truck-png-2.png') center/contain no-repeat}
+    h1{font-size:3.2rem;margin:10px}
+    button{background:#ff6b00;color:#fff;border:none;padding:18px 50px;font-size:1.4rem;border-radius:50px;margin:30px auto;display:block}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:40px}
+    .card{background:#1b263b;padding:25px;border-radius:15px}
     .card h3{color:#ff6b00}
   </style>
 </head>
 <body>
+
   <div class="hero">
-    <div>
-      <div class="logo"></div>
-      <h1>TRUCKPRO</h1>
-      <p>Heavy Duty Parts • Sales • 24/7 Service</p>
-      <button onclick="alert('Add to Home Screen → then tap Share → Add to Home Screen')">Install App Now</button>
-      <p style="font-size:0.9rem;margin-top:20px">Works offline • Instant quotes</p>
-    </div>
-  </div>
-  <div class="grid">
-    <div class="card"><h3>Parts Catalog</h3><p>Millions of OEM & aftermarket parts</p></div>
-    <div class="card"><h3>Instant Quotes</h3><p>Pricing in seconds</p></div>
-    <div class="card"><h3>Service Booking</h3><p>24/7 scheduling</p></div>
-    <div class="card"><h3>Financing</h3><p>Fleet accounts available</p></div>
+    <div class="logo"></div>
+    <h1>TRUCKPRO</h1>
+    <p style="font-size:1.3rem">Heavy Duty Parts • Sales • Service</p>
+    <button onclick="alert('Tap Share → Add to Home Screen to install')">Install App Now</button>
   </div>
 
-  <script>
-    // Super-light service worker in one line (works without separate sw.js)
-    navigator.serviceWorker?.register('data:text/javascript,self.addEventListener("fetch",e=>e.respondWith(fetch(e.request).catch(()=>caches.match("/"))))')
-  </script>
+  <div class="cards">
+    <div class="card"><h3>Parts Catalog</h3><p>Search millions of parts</p></div>
+    <div class="card"><h3>Instant Quotes</h3><p>Prices in seconds</p></div>
+    <div class="card"><h3>24/7 Service</h3><p>Book repairs anytime</p></div>
+    <div class="card"><h3>Financing</h3><p>Fleet accounts welcome</p></div>
+  </div>
+
 </body>
 </html>
