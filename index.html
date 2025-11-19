@@ -9,26 +9,33 @@
     body{margin:0;background:#0d1b2a;color:#fff;font-family:system-ui;text-align:center;padding:40px;line-height:1.7}
     img{max-width:90%;height:auto;margin:30px auto;border-radius:12px}
     h1{font-size:2.8rem;margin:20px 0 10px}
-    p{font-size:1.2rem;max-waidth:600px;margin:20px auto}
-    button{padding:18px 50px;font-size:1.4rem;border:none;border-radius:50px;cursor:pointer;margin:40px auto;display:block;min-width:280px;transition:all 0.4s}
+    p{font-size:1.2rem;max-width:700px;margin:20px auto}
+    button{padding:20px 60px;font-size:1.6rem;border:none;border-radius:50px;cursor:pointer;margin:50px auto;display:block;min-width:300px;transition:all 0.4s}
     .waiting{background:#444;color:#aaa;cursor:not-allowed}
     .install{background:#ff6b00;color:#fff}
     .home{background:#00b74a;color:#fff}
-    .small{font-size:0.9rem;color:#aaa;margin-top:30px}
+    .instructions{background:#1b263b;padding:30px;border-radius:16px;margin:40px auto;max-width:600px;font-size:1.35rem}
+    .instructions strong{color:#ff6b00}
+    .note{font-size:1.1rem;margin-top:30px;color:#ccc}
   </style>
 </head>
 <body>
 
   <img src="logo.jpeg" alt="TP Diesel">
   <h1>TP Diesel</h1>
-  <p>Heavy-Duty Truck Parts & 24/7 Service<br>Fleet Pricing • Real Inventory • Emergency Roadside</p>
+  <p>Heavy-Duty Truck Parts • 24/7 Service • Fleet Pricing</p>
 
-  <button id="btn" class="waiting">Waiting for install...</button>
+  <button id="btn" class="waiting">Waiting for install prompt…</button>
 
-  <div class="small">
-    iPhone: Tap Share → Add to Home Screen<br>
-    Android: Tap Menu ⋮ → “Install app” or “Add to home screen”
+  <div class="instructions">
+    <strong>How to install TP Diesel on your phone:</strong><br><br>
+    iPhone / iPad → Tap the <strong>Share icon</strong> → scroll down → <strong>Add to Home Screen</strong><br><br>
+    Android → Tap the <strong>3-dot menu</strong> → <strong>Install app</strong> or <strong>Add to home screen</strong>
   </div>
+
+  <p class="note">
+    TP Diesel will be available on your home screen once installation is complete.
+  </p>
 
 <script>
 let deferredPrompt;
@@ -41,8 +48,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
   btn.className = 'install';
   btn.onclick = () => deferredPrompt.prompt();
 });
-
-deferredPrompt?.prompt(); // in case it was already triggered
 
 window.addEventListener('appinstalled', () => {
   btn.textContent = 'TP Diesel Home';
