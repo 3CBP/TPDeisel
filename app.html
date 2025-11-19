@@ -1,16 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TP Diesel</title>
+  <meta name="theme-color" content="#0d1b2a">
   <style>
-    body{margin:0;background:#0d1b2a;color:#fff;font-family:system-ui;padding:40px;text-align:center}
-    header{background:#00b74a;padding:20px;font-size:1.8rem}
+    body{margin:0;background:#0d1b2a;color:#fff;font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden}
+    header{background:#ff6b00;padding:18px 20px;position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 20px rgba(0,0,0,0.4)}
+    header h1{font-size:1.8rem;margin:0;font-weight:900}
+    .call-btn{background:#00b74a;color:#fff;padding:14px 20px;border-radius:50px;font-weight:bold;font-size:1rem}
+    .banner{background:#0099ff;padding:12px;font-size:1.1rem;font-weight:600}
+    .search{margin:20px;padding:0 20px}
+    .search input{width:100%;max-width:600px;padding:18px 24px;font-size:1.3rem;border:none;border-radius:50px;background:#1b263b;color:#fff;box-shadow:0 8px 25px rgba(0,0,0,0.4)}
+    .quick-links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:20px 20px 10px}
+    .quick-links button{background:#111827;border:2px solid #0099ff;color:#0099ff;padding:12px 24px;border-radius:50px;font-weight:bold}
+    .parts{ display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;padding:20px}
+    .part{background:#1b263b;padding:24px;border-radius:18px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.5);transition:transform 0.3s}
+    .part:hover{transform:translateY(-8px)}
+    .part img{width:100%;height:180px;object-fit:contain;background:#111;border-radius:12px}
+    .price{color:#ff6b00;font-size:2rem;font-weight:900;margin:12px 0}
+    .add{background:#ff6b00;color:#fff;padding:14px 32px;border:none;border-radius:50px;font-size:1.2rem;font-weight:bold;margin-top:10px}
+    .fab{position:fixed;bottom:25px;right:25px;background:#00b74a;color:#fff;width:64px;height:64px;border-radius:50%;font-size:2rem;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 25px rgba(0,183,74,0.6);z-index:99}
   </style>
 </head>
 <body>
-  <header>TP Diesel</header>
-  <h1 style="margin-top:100px">Catalog coming soon</h1>
+
+  <header>
+    <h1>TP Diesel</h1>
+    <a href="tel:555-123-4567" class="call-btn">Call 24/7</a>
+  </header>
+
+  <div class="banner">24/7 Emergency Roadside Service • Same-Day Parts Shipping</div>
+
+  <div class="search">
+    <input type="text" id="search" placeholder="Search brakes, turbo, filters, lights…" oninput="filter()">
+  </div>
+
+  <div class="quick-links">
+    <button onclick="searchCat('Brake')">Brakes</button>
+    <button onclick="searchCat('Engine')">Engine</button>
+    <button onclick="searchCat('Turbo')">Turbo</button>
+    <button onclick="searchCat('Light')">Lighting</button>
+    <button onclick="searchCat('Suspension')">Suspension</button>
+    <button onclick="searchCat('Filter')">Filters</button>
+  </div>
+
+  <div class="parts" id="parts"></div>
+
+  <a href="tel:555-123-4567" class="fab">Phone</a>
+
+<script>
+const parts = [
+  ["Air Brake Chamber","$189","https://i.imgur.com/9t1lN2k.png","Brake"],
+  ["LED Headlight Kit","$299","https://i.imgur.com/4p8K9pJ.png","Lighting"],
+  ["Cummins ISX Turbo Rebuild","$879","https://i.imgur.com/X7kP8mD.png","Turbo"],
+  ["Oil Filter Fleetguard","$24.99","https://i.imgur.com/5eR9pLm.png","Filter"],
+  ["Fifth Wheel Plate","$1,299","https://i.imgur.com/Z5pL7kN.png","Suspension"],
+  ["Battery 950CCA","$179","https://i.imgur.com/T3vN9kP.png","Electrical"],
+  ["Fuel/Water Separator","$68","https://i.imgur.com/Qw2vF8s.png","Filter"],
+  ["Clutch Kit 15.5″","$1,149","https://i.imgur.com/9fG3hRt.png","Engine"]
+];
+
+function render(arr){ document.getElementById("parts").innerHTML = arr.map(p=>`
+  <div class="part">
+    <img src="${p[2]}" alt="${p[0]}">
+    <h3>${p[0]}</h3>
+    <div class="price">${p[1]}</div>
+    <button class="add" onclick="alert('Added! Call 555-123-4567 to order')">Add to Cart</button>
+  </div>`).join(''); }
+
+function filter(){ const q = document.getElementById("search").value.toLowerCase();
+  render(parts.filter(p=>p[0].toLowerCase().includes(q)||p[3].toLowerCase().includes(q))); }
+
+function searchCat(cat){ document.getElementById("search").value = cat; filter(); }
+
+render(parts);
+</script>
+
 </body>
 </html>
