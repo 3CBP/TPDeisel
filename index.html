@@ -3,76 +3,69 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TruckPro Parts</title>
+  <title>TP Auto – Truck Parts & Service</title>
   <meta name="theme-color" content="#ff6b00">
   <style>
-    body{margin:0;font-family:system-ui;background:#0d1b2a;color:#fff}
-    header{background:#ff6b00;padding:15px;position:sticky;top:0;z-index:10;text-align:center;font-size:1.4rem}
-    .cart{position:fixed;top:15px;right:15px;background:#c04f00;padding:10px 15px;border-radius:50px;font-weight:bold}
-    .hero{padding:40px 20px;text-align:center;background:linear-gradient(#00000099,#000000cc),url('https://images.unsplash.com/photo-1581093458791-9ea9a7842e88?auto=format&fit=crop&q=80') center/cover}
-    .logo{width:120px;height:120px;margin:0 auto 20px;background:url('https://www.freeiconspng.com/uploads/truck-png-2.png') center/contain no-repeat}
-    input[type=text]{width:90%;max-width:500px;padding:15px;font-size:1.2rem;border:none;border-radius:50px;margin:20px auto;display:block}
-    .parts{ display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;padding:20px}
-    .part{background:#1b263b;padding:20px;border-radius:15px;text-align:center}
-    .part img{width:100%;height:180px;object-fit:contain;background:#111;border-radius:10px}
-    .price{color:#ff6b00;font-size:1.5rem;font-weight:bold}
-    button{background:#ff6b00;color:#fff;border:none;padding:12px 30px;margin-top:10px;border-radius:50px;font-size:1.1rem}
-    button:active{transform:scale(0.95)}
-    .empty{text-align:center;padding:50px;color:#aaa}
+    body{margin:0;font-family:system-ui;background:#0d1b2a;color:#fff;text-align:center;padding:20px;line-height:1.6}
+    .logo{width:140px;height:140px;margin:30px auto;background:url('https://www.freeiconspng.com/uploads/truck-png-2.png') center/contain no-repeat}
+    h1{font-size:2.8rem;margin:10px}
+    .news{background:#1b263b;padding:20px;margin:30px auto;border-radius:15px;max-width:600px}
+    button{background:#ff6b00;color:#fff;border:none;padding:18px 50px;font-size:1.4rem;border-radius:50px;margin:30px auto;display:block;width:90%;max-width:400px}
+    button:active{transform:scale(0.96)}
+    .small{font-size:0.9rem;color:#aaa;margin-top:20px}
+    .hidden{display:none}
   </style>
 </head>
 <body>
 
-  <header>
-    TRUCKPRO PARTS
-    <div class="cart">Cart: <span id="count">0</span></div>
-  </header>
+  <div class="logo"></div>
+  <h1>TP Auto</h1>
+  <p style="font-size:1.3rem">Your 24/7 Heavy-Duty Truck Parts & Service</p>
 
-  <div class="hero">
-    <div class="logo"></div>
-    <h1>Find Your Part Fast</h1>
-    <input type="text" id="search" placeholder="Search brakes, filters, turbo, lights..." oninput="filter()">
-    <button onclick="alert('Tap Share → Add to Home Screen to install')">Install App</button>
+  <div class="news">
+    <h2>What's New</h2>
+    <p><strong>Now open 24 hours</strong> – emergency roadside service<br>
+       <strong>New inventory:</strong> Cummins ISX turbo kits in stock<br>
+       <strong>Fleet pricing</strong> – call or install the app for instant quotes</p>
   </div>
 
-  <div class="parts" id="list">
-    <!-- Parts auto-filled by script below -->
+  <!-- Install Section – shows first -->
+  <div id="installSection">
+    <button onclick="showMain()">Install App – Takes 5 Seconds</button>
+    <div class="small">
+      <strong>iPhone:</strong> Tap Share ↓ → “Add to Home Screen”<br>
+      <strong>Android:</strong> Tap the 3-dot menu → “Install app” or “Add to home screen”
+    </div>
+    <p style="margin-top:30px"><a href="#" onclick="alreadyInstalled();return false;" style="color:#ff8c33">I already installed → skip</a></p>
+  </div>
+
+  <!-- Main App Button – appears after install -->
+  <div id="mainSection" class="hidden">
+    <button onclick="location.href='catalog.html'">Go to TP Auto →</button>
   </div>
 
 <script>
-const parts = [
-  {name:"Air Brake Chamber", price:"$189.99", img:"https://i.imgur.com/9t1lN2k.png"},
-  {name:"LED Headlight Kit", price:"$299", img:"https://i.imgur.com/4p8K9pJ.png"},
-  {name:"Turbocharger Rebuild Kit", price:"$879", img:"https://i.imgur.com/X7kP8mD.png"},
-  {name:"Oil Filter (Fleetguard)", price:"$24.99", img:"https://i.imgur.com/5eR9pLm.png"},
-  {name:"Fifth Wheel Plate", price:"$1,299", img:"https://i.imgur.com/Z5pL7kN.png"},
-  {name:"Fuel/Water Separator", price:"$68.50", img:"https://i.imgur.com/Qw2vF8s.png"},
-  {name:"Clutch Kit 15.5\"", price:"$1,149", img:"https://i.imgur.com/9fG3hRt.png"},
-  {name:"Mud Flaps Heavy Duty", price:"$89/pair", img:"https://i.imgur.com/Lm7xK9v.png"},
-  {name:"Exhaust Elbow 5\"", price:"$219", img:"https://i.imgur.com/8jK4pLm.png"},
-  {name:"Battery 12V 950CCA", price:"$179", img:"https://i.imgur.com/T3vN9kP.png"}
-];
-
-let cart = 0;
-const list = document.getElementById("list");
-const count = document.getElementById("count");
-
-function render(arr) {
-  list.innerHTML = arr.length ? arr.map(p => `
-    <div class="part">
-      <img src="${p.img}" alt="${p.name}">
-      <h3>${p.name}</h3>
-      <div class="price">${p.price}</div>
-      <button onclick="cart++;count.textContent=cart;alert('Added to cart!')">Add to Cart</button>
-    </div>
-  `).join('') : '<div class="empty">No parts found</div>';
+// Check if user has already "installed" (we just use localStorage)
+if (localStorage.getItem('tp-installed') === 'yes') {
+  document.getElementById('installSection').classList.add('hidden');
+  document.getElementById('mainSection').classList.remove('hidden');
 }
-render(parts);
 
-function filter() {
-  const term = document.getElementById("search").value.toLowerCase();
-  render(parts.filter(p => p.name.toLowerCase().includes(term)));
+function showMain() {
+  // Pretend they installed – hide install button forever
+  localStorage.setItem('tp-installed', 'yes');
+  document.getElementById('installSection').classList.add('hidden');
+  document.getElementById('mainSection').classList.remove('hidden');
 }
+
+function alreadyInstalled() {
+  showMain();
+}
+
+// Optional: auto-detect real PWA install (works on real phones)
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); // we handle it manually above
+});
 </script>
 
 </body>
