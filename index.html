@@ -6,36 +6,40 @@
   <title>TP Diesel</title>
   <meta name="theme-color" content="#0d1b2a">
   <style>
-    body{margin:0;background:#0d1b2a;color:#fff;font-family:system-ui;text-align:center;padding:40px;line-height:1.7}
-    img{max-width:90%;height:auto;margin:30px auto;border-radius:12px}
-    h1{font-size:2.8rem;margin:20px 0 10px}
-    p{font-size:1.2rem;max-width:700px;margin:20px auto}
-    button{padding:20px 60px;font-size:1.6rem;border:none;border-radius:50px;cursor:pointer;margin:50px auto;display:block;min-width:300px;transition:all 0.4s}
-    .waiting{background:#444;color:#aaa;cursor:not-allowed}
-    .install{background:#ff6b00;color:#fff}
-    .home{background:#00b74a;color:#fff}
-    .instructions{background:#1b263b;padding:30px;border-radius:16px;margin:40px auto;max-width:600px;font-size:1.35rem}
+    body{margin:0;background:#0d1b2a;color:#fff;font-family:'Segoe UI',system-ui,sans-serif;text-align:center;padding:40px 20px}
+    .container{max-width:640px;margin:0 auto}
+    img{max-width:85%;height:auto;margin:20px auto;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.6)}
+    h1{font-size:3.2rem;margin:10px 0;font-weight:900;color:#ff6b00;text-shadow:0 4px 12px rgba(0,0,0,0.7)}
+    .tagline{font-size:1.4rem;margin:20px 0;color:#0099ff;font-weight:600}
+    button{padding:22px 60px;font-size:1.7rem;font-weight:bold;border:none;border-radius:50px;cursor:pointer;margin:50px auto;display:block;min-width:320px;transition:all 0.4s}
+    .waiting{background:#333;color:#999;cursor:not-allowed}
+    .install{background:#ff6b00;color:#fff;box-shadow:0 8px 25px rgba(255,107,0,0.5)}
+    .home{background:#00b74a;color:#fff;box-shadow:0 8px 25px rgba(0,183,74,0.5)}
+    .instructions{background:#111827;padding:32px;border-radius:18px;margin:40px auto;max-width:580px;font-size:1.4rem;line-height:1.8;border:2px solid #0099ff}
     .instructions strong{color:#ff6b00}
-    .note{font-size:1.1rem;margin-top:30px;color:#ccc}
+    .note{font-size:1.2rem;margin:35px 0;color:#ccc}
+    .accent{color:#0099ff}
   </style>
 </head>
 <body>
 
+<div class="container">
   <img src="logo.jpeg" alt="TP Diesel">
-  <h1>TP Diesel</h1>
-  <p>Heavy-Duty Truck Parts • 24/7 Service • Fleet Pricing</p>
+  <h1>TP DIESEL</h1>
+  <p class="tagline">Heavy-Duty Truck Parts &bull; 24/7 Service &bull; Fleet Pricing</p>
 
   <button id="btn" class="waiting">Waiting for install prompt…</button>
 
   <div class="instructions">
     <strong>How to install TP Diesel on your phone:</strong><br><br>
-    iPhone / iPad → Tap the <strong>Share icon</strong> → scroll down → <strong>Add to Home Screen</strong><br><br>
-    Android → Tap the <strong>3-dot menu</strong> → <strong>Install app</strong> or <strong>Add to home screen</strong>
+    <span class="accent">iPhone / iPad</span> → Tap the <strong>Share icon</strong> → Scroll → <strong>Add to Home Screen</strong><br><br>
+    <span class="accent">Android</span> → Tap the <strong>3-dot menu</strong> → <strong>Install app</strong> or <strong>Add to home screen</strong>
   </div>
 
   <p class="note">
     TP Diesel will be available on your home screen once installation is complete.
   </p>
+</div>
 
 <script>
 let deferredPrompt;
