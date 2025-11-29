@@ -1,9 +1,50 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TP Diesel</title><meta name="apple-mobile-web-app-capable" content="yes"><style>body{margin:0;background:#0d1b2a;color:#fff;font-family:system-ui;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;text-align:center;padding:20px}img{max-width:70%;margin-bottom:30px;border-radius:16px}h1{font-size:3rem;margin:20px 0;color:#0099ff}h1 span{color:#fff}p{font-size:1.4rem;line-height:1.6}.btn{background:#ff6b00;color:#fff;padding:20px 60px;font-size:1.8rem;border:none;border-radius:50px;margin:40px 0;font-weight:bold}.steps{background:#1b263b;padding:25px;border-radius:16px;margin:20px 0;max-width:90%;font-size:1.3rem;line-height:1.8}.steps strong{color:#00b74a}</style></head><body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TP Diesel</title>
+<style>
+  body{margin:0;background:#0d1b2a;color:#fff;font-family:system-ui;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;text-align:center;padding:20px}
+  img{max-width:70%;margin-bottom:30px;border-radius:16px}
+  h1{font-size:3rem;margin:20px 0;color:#0099ff}
+  h1 span{color:#fff}
+  p{font-size:1.4rem;line-height:1.6;margin:15px}
+  button{background:#ff6b00;color:#fff;padding:20px 60px;font-size:1.8rem;border:none;border-radius:50px;margin:40px 0;font-weight:bold}
+  .steps{background:#1b263b;padding:25px;border-radius:16px;margin:20px 0;max-width:90%;font-size:1.3rem;line-height:1.8}
+  .steps strong{color:#00b74a}
+</style>
+</head>
+<body>
+
   <img src="logo.jpeg" alt="TP Diesel">
   <h1>TP <span>DIESEL</span></h1>
   <p>Heavy-Duty Truck Parts • Real Inventory • Fleet Pricing</p>
-  <button class="btn" id="addBtn" disabled>Add to Home Screen First</button>
-  <div class="steps"><strong>iPhone:</strong> Share → Add to Home Screen<br><br><strong>Android:</strong> Menu → Install app</div>
+  <button id="addBtn" disabled>Add to Home Screen First</button>
+  <div class="steps">
+    <strong>iPhone:</strong> Share → Add to Home Screen<br><br>
+    <strong>Android:</strong> Menu → Install app
+  </div>
   <p>You must install the app to continue</p>
-<script>let d;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();d=e;document.getElementById('addBtn').textContent='Add to Home Screen Now →';document.getElementById('addBtn').disabled=false;document.getElementById('addBtn').onclick=()=>d.prompt()});window.addEventListener('appinstalled',()=>{location.href='app.html'});if(window.matchMedia('(display-mode: standalone)').matches||navigator.standalone)location.href='app.html';</script>
-</body></html>
+
+<script>
+let deferredPrompt;
+const btn = document.getElementById('addBtn');
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  btn.textContent = 'Add to Home Screen Now →';
+  btn.disabled = false;
+  btn.onclick = () => deferredPrompt.prompt();
+});
+
+window.addEventListener('appinstalled', () => location.href = 'app.html');
+
+if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+  location.href = 'app.html';
+}
+</script>
+
+</body>
+</html>
