@@ -3,33 +3,53 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>TP Diesel</title>
+  <title>TP Diesel – Install Required</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <style>
-    body{margin:0;background:#0d1b2a;color:#fff;font-family:system-ui;text-align:center;overflow:hidden}
-    .welcome{position:fixed;inset:0;background:#0d1b2a;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:99}
-    img{max-width:70%;margin:20px}
-    h1{font-size:3rem;margin:10px;color:#ff6b00}
-    p{font-size:1.3rem;margin:15px;max-width:90%}
-    button{background:#ff6b00;color:#fff;padding:18px 50px;font-size:1.5rem;border:none;border-radius:50px;margin-top:30px}
-    .hidden{display:none}
+    body{margin:0;background:#0d1b2a;color:#fff;font-family:system-ui;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;text-align:center;padding:20px}
+    img{max-width:70%;margin-bottom:30px;border-radius:16px}
+    h1{font-size:3rem;margin:20px 0;color:#ff6b00}
+    p{font-size:1.4rem;max-width:90%;line-height:1.6}
+    .btn{background:#ff6b00;color:#fff;padding:20px 60px;font-size:1.8rem;border:none;border-radius:50px;margin:40px 0;font-weight:bold}
+    .steps{background:#1b263b;padding:25px;border-radius:16px;margin:30px 0;max-width:90%;font-size:1.3rem;line-height:1.8}
+    .steps strong{color:#00b74a}
   </style>
 </head>
 <body>
 
-<div class="welcome" id="welcome">
   <img src="logo.jpeg" alt="TP Diesel">
   <h1>TP DIESEL</h1>
   <p>Heavy-Duty Truck Parts • 24/7 Service<br>Fleet Pricing • Same-Day Shipping</p>
-  <button onclick="start()">Enter Shop →</button>
-</div>
 
-<iframe src="app.html" frameborder="0" style="position:fixed;inset:0;width:100%;height:100%"></iframe>
+  <button class="btn" id="addBtn" disabled>Add to Home Screen First</button>
+
+  <div class="steps">
+    <strong>iPhone:</strong> Tap Share → Add to Home Screen<br><br>
+    <strong>Android:</strong> Tap Menu → “Install app” or “Add to home screen”
+  </div>
+
+  <p>You must install the app to continue</p>
 
 <script>
-if(localStorage.getItem('tp-seen')) document.getElementById('welcome').classList.add('hidden');
-function start(){
-  localStorage.setItem('tp-seen','yes');
-  document.getElementById('welcome').classList.add('hidden');
+let deferredPrompt;
+
+// Show the real install button when browser is ready
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('addBtn').textContent = 'Add to Home Screen Now →';
+  document.getElementById('addBtn').disabled = false;
+  document.getElementById('addBtn').onclick = () => deferredPrompt.prompt();
+});
+
+// After they actually install → go straight to the real app
+window.addEventListener('appinstalled', () => {
+  location.href = 'app.html';
+});
+
+// If they already installed and are opening from home screen → skip everything
+if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+  location.href = 'app.html';
 }
 </script>
 
