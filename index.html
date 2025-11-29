@@ -2,67 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>TP Diesel</title>
-  <meta name="theme-color" content="#0d1b2a">
   <style>
-    body{margin:0;background:#0d1b2a;color:#fff;font-family:'Segoe UI',system-ui,sans-serif;text-align:center;padding:40px 20px}
-    .container{max-width:640px;margin:0 auto}
-    img{max-width:85%;height:auto;margin:20px auto;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.6)}
-    h1{font-size:3.2rem;margin:10px 0;font-weight:900;color:#ff6b00;text-shadow:0 4px 12px rgba(0,0,0,0.7)}
-    .tagline{font-size:1.4rem;margin:20px 0;color:#0099ff;font-weight:600}
-    button{padding:22px 60px;font-size:1.7rem;font-weight:bold;border:none;border-radius:50px;cursor:pointer;margin:50px auto;display:block;min-width:320px;transition:all 0.4s}
-    .waiting{background:#333;color:#999;cursor:not-allowed}
-    .install{background:#ff6b00;color:#fff;box-shadow:0 8px 25px rgba(255,107,0,0.5)}
-    .home{background:#00b74a;color:#fff;box-shadow:0 8px 25px rgba(0,183,74,0.5)}
-    .instructions{background:#111827;padding:32px;border-radius:18px;margin:40px auto;max-width:580px;font-size:1.4rem;line-height:1.8;border:2px solid #0099ff}
-    .instructions strong{color:#ff6b00}
-    .note{font-size:1.2rem;margin:35px 0;color:#ccc}
-    .accent{color:#0099ff}
+    body{margin:0;background:#0d1b2a;color:#fff;font-family:system-ui;text-align:center;overflow:hidden}
+    .welcome{position:fixed;inset:0;background:#0d1b2a;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:99}
+    img{max-width:70%;margin:20px}
+    h1{font-size:3rem;margin:10px;color:#ff6b00}
+    p{font-size:1.3rem;margin:15px;max-width:90%}
+    button{background:#ff6b00;color:#fff;padding:18px 50px;font-size:1.5rem;border:none;border-radius:50px;margin-top:30px}
+    .hidden{display:none}
   </style>
 </head>
 <body>
 
-<div class="container">
+<div class="welcome" id="welcome">
   <img src="logo.jpeg" alt="TP Diesel">
   <h1>TP DIESEL</h1>
-  <p class="tagline">Heavy-Duty Truck Parts &bull; 24/7 Service &bull; Fleet Pricing</p>
-
-  <button id="btn" class="waiting">Waiting for install prompt…</button>
-
-  <div class="instructions">
-    <strong>How to install TP Diesel on your phone:</strong><br><br>
-    <span class="accent">iPhone / iPad</span> → Tap the <strong>Share icon</strong> → Scroll → <strong>Add to Home Screen</strong><br><br>
-    <span class="accent">Android</span> → Tap the <strong>3-dot menu</strong> → <strong>Install app</strong> or <strong>Add to home screen</strong>
-  </div>
-
-  <p class="note">
-    TP Diesel will be available on your home screen once installation is complete.
-  </p>
+  <p>Heavy-Duty Truck Parts • 24/7 Service<br>Fleet Pricing • Same-Day Shipping</p>
+  <button onclick="start()">Enter Shop →</button>
 </div>
 
+<iframe src="app.html" frameborder="0" style="position:fixed;inset:0;width:100%;height:100%"></iframe>
+
 <script>
-let deferredPrompt;
-const btn = document.getElementById('btn');
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  btn.textContent = 'Install to Home Screen';
-  btn.className = 'install';
-  btn.onclick = () => deferredPrompt.prompt();
-});
-
-window.addEventListener('appinstalled', () => {
-  btn.textContent = 'TP Diesel Home';
-  btn.className = 'home';
-  btn.onclick = () => location.href = 'app.html';
-});
-
-if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-  btn.textContent = 'TP Diesel Home';
-  btn.className = 'home';
-  btn.onclick = () => location.href = 'app.html';
+if(localStorage.getItem('tp-seen')) document.getElementById('welcome').classList.add('hidden');
+function start(){
+  localStorage.setItem('tp-seen','yes');
+  document.getElementById('welcome').classList.add('hidden');
 }
 </script>
 
